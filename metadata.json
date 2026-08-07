@@ -1,0 +1,8 @@
+{
+  "name": "Remix AppRoutineTech",
+  "description": "Sistema de Gestão e Landing Page para Profissionais de TI e Serviços Técnicos",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
