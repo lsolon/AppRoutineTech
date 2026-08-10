@@ -10,6 +10,7 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import QuoteRequestForm from './components/QuoteRequestForm';
 import Services from './components/Services';
+import Portfolio from './components/Portfolio';
 import Features from './components/Features';
 import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
@@ -19,6 +20,7 @@ import DashboardApp from './components/dashboard/DashboardApp';
 export default function App() {
   const [user, setUser] = useState<User | null>(null);
   const [isAuthChecking, setIsAuthChecking] = useState(true);
+  const [showQuoteForm, setShowQuoteForm] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -58,9 +60,15 @@ export default function App() {
     <div className="min-h-screen bg-white font-sans text-[#333333] selection:bg-[#005B96] selection:text-white">
       <Navbar onLogin={handleLogin} />
       <main>
-        <Hero />
-        <QuoteRequestForm />
+        <Hero onShowQuoteForm={() => {
+          setShowQuoteForm(true);
+          setTimeout(() => {
+            document.getElementById('solicitar-orcamento')?.scrollIntoView({ behavior: 'smooth' });
+          }, 100);
+        }} />
+        {showQuoteForm && <QuoteRequestForm />}
         <Services />
+        <Portfolio />
         <Features />
         <Testimonials />
       </main>

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { MessageCircle, LogIn, Menu, X } from 'lucide-react';
+import { MessageCircle, LogIn, Menu, X, ChevronDown } from 'lucide-react';
 import { useCompanyInfo } from '../hooks/useCompanyInfo';
 
 export default function Navbar({ onLogin }: { onLogin?: () => void }) {
@@ -20,6 +20,18 @@ export default function Navbar({ onLogin }: { onLogin?: () => void }) {
         <nav className="hidden md:flex gap-8 items-center">
           <a href="#servicos" className="text-[#333333] hover:text-[#005B96] font-medium transition-colors">Serviços</a>
           <a href="#diferenciais" className="text-[#333333] hover:text-[#005B96] font-medium transition-colors">Diferenciais</a>
+          
+          {/* Portfolio Dropdown */}
+          <div className="relative group">
+            <button className="flex items-center gap-1 text-[#333333] hover:text-[#005B96] font-medium transition-colors py-2">
+              Portfólio <ChevronDown className="w-4 h-4" />
+            </button>
+            <div className="absolute top-full left-0 mt-0 w-48 bg-white border border-gray-100 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+              <a href="https://approutinetech.duckdns.org/magic-library" target="_blank" rel="noopener noreferrer" className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-[#005B96] first:rounded-t-lg">Magic Library</a>
+              <a href="https://approutinetech.duckdns.org/pintura-e-manutencao" target="_blank" rel="noopener noreferrer" className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-[#005B96] last:rounded-b-lg">Pintura e Manutenção</a>
+            </div>
+          </div>
+
           <a href="#depoimentos" className="text-[#333333] hover:text-[#005B96] font-medium transition-colors">Depoimentos</a>
           {onLogin && (
             <button 
@@ -78,6 +90,29 @@ export default function Navbar({ onLogin }: { onLogin?: () => void }) {
           >
             Diferenciais
           </a>
+          <div className="px-3 py-2">
+            <div className="text-base font-medium text-gray-700 mb-2">Portfólio</div>
+            <div className="pl-4 space-y-2 border-l-2 border-gray-100">
+              <a 
+                href="https://approutinetech.duckdns.org/magic-library" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="block text-sm font-medium text-gray-600 hover:text-[#005B96]"
+              >
+                Magic Library
+              </a>
+              <a 
+                href="https://approutinetech.duckdns.org/pintura-e-manutencao" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="block text-sm font-medium text-gray-600 hover:text-[#005B96]"
+              >
+                Pintura e Manutenção
+              </a>
+            </div>
+          </div>
           <a 
             href="#depoimentos" 
             onClick={() => setIsMobileMenuOpen(false)}

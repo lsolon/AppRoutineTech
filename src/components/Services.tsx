@@ -1,4 +1,4 @@
-import { Monitor, Network, ShieldCheck, Server, HardDrive, Cpu } from 'lucide-react';
+import { Monitor, Network, ShieldCheck, Server, HardDrive, Cpu, Globe } from 'lucide-react';
 
 const services = [
   {
@@ -42,6 +42,13 @@ const services = [
     description: 'Planejamento de infraestrutura tecnológica, dimensionamento de equipamentos e orientação profissional para modernização dos seus sistemas.',
     color: 'text-indigo-600',
     bg: 'bg-indigo-50'
+  },
+  {
+    icon: Globe,
+    title: 'Criação de Sites',
+    description: 'Desenvolvimento de sites profissionais, responsivos e otimizados, voltados para diversos segmentos.',
+    color: 'text-rose-600',
+    bg: 'bg-rose-50'
   }
 ];
 

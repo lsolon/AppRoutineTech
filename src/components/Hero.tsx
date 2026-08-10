@@ -1,7 +1,7 @@
 import { MessageCircle, ShieldCheck, Clock, Star, FileText } from 'lucide-react';
 import { useCompanyInfo } from '../hooks/useCompanyInfo';
 
-export default function Hero() {
+export default function Hero({ onShowQuoteForm }: { onShowQuoteForm?: () => void }) {
   const { companyInfo, getWhatsAppUrl } = useCompanyInfo();
 
   return (
@@ -23,13 +23,13 @@ export default function Hero() {
           </p>
           
           <div className="pt-2 flex flex-col sm:flex-row gap-4">
-            <a 
-              href="#solicitar-orcamento"
+            <button 
+              onClick={onShowQuoteForm}
               className="flex items-center justify-center gap-2 bg-white text-[#005B96] hover:bg-blue-50 px-7 py-4 rounded-full font-bold text-base transition-all transform hover:scale-105 shadow-lg"
             >
               <FileText className="w-5 h-5 text-[#005B96]" />
               Preencher Formulário de Orçamento
-            </a>
+            </button>
 
             <a 
               href={getWhatsAppUrl(`Ol%C3%A1%20${companyInfo.companyName},%20gostaria%20de%20um%20or%C3%A7amento!`)}
