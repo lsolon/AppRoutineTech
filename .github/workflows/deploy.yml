@@ -1,34 +1,45 @@
-name: Deploy para VPS
-
+name: Deploy to Oracle VPS
 on:
   push:
     branches:
-      - main  # Vai rodar sempre que houver código novo na branch 'main'
+      - main
+  workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Conectando e atualizando a VPS
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install and build
+        run: |
+          npm install
+          npx vite build
+        env:
+          VITE_BASE_PATH: /
+
+      - name: Deploy via SCP
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          source: "dist/*"
+          target: /var/www/approutinetech.duckdns.org/
+          strip_components: 1
+
+      - name: Fix permissions
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USERNAME }}
+          username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
-          port: 22
           script: |
-            # 1. Entra na pasta do seu site
-            cd /var/www/approutinetech
-            
-            # 2. Puxa as atualizações do GitHub
-            git pull origin main
-            
-            # 3. Instala dependências novas (caso existam)
-            npm install
-            
-            # 4. Faz a build da aplicação
-            npm run build
-            
-            # 5. Reinicia o servidor (Descomente o que fizer sentido para você)
-            # pm2 restart approutinetech
-            # systemctl restart nginx
+            chown -R ubuntu:ubuntu /var/www/approutinetech.duckdns.org/
+            chmod -R 755 /var/www/approutinetech.duckdns.org/
